@@ -304,7 +304,6 @@
     <audio id="bg-music" loop><source src="musik.mp3" type="audio/mpeg"></audio>
 
     <script>
-        // Google Script API URL
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzSYGPUU6I_FV43a769gBes1Yte--h1O0dJbd-iVg9t7vygcC8XkI3qxUEVgEQHZX1cyQ/exec";
 
         const state = {
@@ -373,7 +372,6 @@
                 const data = await response.json();
                 const container = document.getElementById('rsvp-list-container');
                 container.innerHTML = '';
-                
                 if (data.length === 0) {
                     container.innerHTML = '<div class="p-8 text-center text-gray-400 italic text-xs">Belum ada konfirmasi kehadiran.</div>';
                 } else {
@@ -392,13 +390,11 @@
             const container = document.getElementById('rsvp-list-container');
             if (state.rsvpCount === 0) container.innerHTML = '';
             state.rsvpCount++;
-            
             const time = dateObj.toLocaleString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
             const statusText = status === 'hadir' ? 'HADIR' : 'TIDAK HADIR';
             const statusColor = status === 'hadir' ? 'text-green-600' : 'text-red-500';
             const randomColor = state.colors[Math.floor(Math.random() * state.colors.length)];
             const bgClass = randomColor.replace('text-', 'bg-').replace(/-\d+$/, '-50');
-            
             const div = document.createElement('div');
             div.className = 'px-4 py-3 flex gap-4 animate-bubble';
             div.innerHTML = `
@@ -420,15 +416,10 @@
             const name = document.getElementById('rsvp-name').value;
             const status = document.getElementById('rsvp-status').value;
             const note = document.getElementById('rsvp-note').value;
-            
             btn.disabled = true;
             btn.innerText = "MENGIRIM...";
-
-            // Langsung tampil di chat (palsu) agar responsif
             appendMsg(`${name} (${status === 'hadir' ? 'HADIR' : 'TIDAK HADIR'})`, note, 'right', 'text-green-600');
-            
             try {
-                // Kirim ke Google Sheets
                 await fetch(SCRIPT_URL, {
                     method: 'POST',
                     body: JSON.stringify({ nama: name, status: status, pesan: note })
@@ -437,13 +428,10 @@
             } catch (error) {
                 console.error("Gagal mengirim:", error);
             }
-
             btn.disabled = false;
             btn.innerText = "KIRIM PESAN";
             closeRSVP();
             this.reset();
-            
-            // Balasan otomatis dari mempelai
             setTimeout(() => {
                 const currentMempelai = state.replyTurn === 0 ? 'Amartha' : 'Aditya';
                 const options = state.replies[status][currentMempelai];
@@ -453,7 +441,6 @@
             }, 1500);
         };
 
-        // UI Handlers
         function showInfo() { document.getElementById('chat-screen').classList.remove('active'); document.getElementById('info-screen').classList.add('active'); switchTab('media'); }
         function backToChat() { document.getElementById('info-screen').classList.remove('active'); document.getElementById('chat-screen').classList.add('active'); }
         function openRSVP() { document.getElementById('rsvp-modal').classList.add('active'); }
