@@ -45,14 +45,18 @@
             display: flex; 
             flex-direction: column; 
         }
+        /* BAGIAN YANG DIUBAH: Background menyesuaikan lebar & tinggi */
         .chat-wallpaper { 
             position: absolute; 
             top: 0; 
             left: 0; 
             width: 100%; 
             height: 100%; 
-            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); 
-            opacity: 0.06; 
+            background-image: url('preview.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.2; /* Opacity ditingkatkan sedikit agar preview terlihat tapi chat tetap jelas */
             pointer-events: none; 
             z-index: 1; 
         }
@@ -515,3 +519,4 @@
     </script>
 </body>
 </html>
+
