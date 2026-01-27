@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Nikahan A&A 💍</title>
+    
+    <meta property="og:title" content="Pernikahan Aditya & Amartha 💍">
+    <meta property="og:description" content="Maha Suci Allah yang telah menciptakan mahluk-Nya berpasang-pasangan. Kami mengundang Anda untuk bergabung di hari bahagia kami.">
+    <meta property="og:image" content="https://adityabayp.github.io/undangan3/preview.jpg">
+    <meta property="og:url" content="https://wedding-a-a.com">
+    <meta property="og:type" content="website">
+    
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        :root { 
+            --wa-teal: #008069; 
+            --wa-chat-bg: #e5ddd5; 
+            --wa-bubble-left: #ffffff; 
+            --wa-bubble-right: #dcf8c6; 
+        }
+        body { 
+            font-family: 'Roboto', sans-serif; 
+            background-color: #111; 
+            margin: 0; 
+            overflow: hidden; 
+            height: 100vh; 
+            height: 100dvh; 
+        }
+        .mobile-container { 
+            max-width: 480px; 
+            margin: 0 auto; 
+            height: 100vh; 
+            height: 100dvh; 
+            background: var(--wa-chat-bg); 
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .chat-wallpaper { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); 
+            opacity: 0.06; 
+            pointer-events: none; 
+            z-index: 1; 
+        }
+        .screen { 
+            display: none; 
+            height: 100%; 
+            width: 100%; 
+            flex-direction: column; 
+            z-index: 10; 
+            position: relative; 
+            scroll-behavior: smooth;
+        }
+        .screen.active { display: flex; }
+        header { padding-top: calc(0.75rem + env(safe-area-inset-top)); }
+        #splash-screen { padding-top: env(safe-area-inset-top); }
+        .chat-bubble { 
+            max-width: 85%; 
+            padding: 8px 12px; 
+            border-radius: 8px; 
+            margin-bottom: 8px; 
+            position: relative; 
+            font-size: 14.5px; 
+            line-height: 1.4; 
+            box-shadow: 0 1px 0.5px rgba(0,0,0,0.13); 
+            z-index: 5; 
+        }
+        .bubble-left { background: var(--wa-bubble-left); align-self: flex-start; border-top-left-radius: 0; }
+        .bubble-right { background: var(--wa-bubble-right); align-self: flex-end; border-top-right-radius: 0; }
+        .bubble-time { font-size: 10px; color: #888; text-align: right; margin-top: 4px; }
+        .system-msg { 
+            background: #e1f3fb; 
+            color: #555; 
+            font-size: 12px; 
+            padding: 5px 12px; 
+            border-radius: 8px; 
+            align-self: center; 
+            margin-bottom: 8px; 
+            text-align: center; 
+            z-index: 5; 
+        }
+        .modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.9); 
+            z-index: 100; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px; 
+        }
+        .modal.active { display: flex; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-bubble { animation: fadeInUp 0.3s ease-out forwards; }
+        .music-control { 
+            position: fixed; 
+            bottom: 85px; 
+            right: 20px; 
+            z-index: 50; 
+            background: white; 
+            width: 45px; 
+            height: 45px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+            cursor: pointer; 
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container overflow-hidden">
+        <div class="chat-wallpaper"></div>
+
+        <section id="splash-screen" class="screen active bg-[#008069] flex items-center justify-center text-white text-center p-6">
+            <div class="animate-bounce mb-8">
+                <i class="fas fa-heart text-8xl text-red-100"></i>
+            </div>
+            <h1 class="text-3xl font-bold mb-2">Nikahan <span class="text-sky-300">A</span>&<span class="text-pink-300">A</span> </h1>
+            <p class="mb-8 opacity-90"><span class="text-sky-200">Aditya</span> & <span class="text-pink-200">Amartha</span> mengundang Anda bergabung ke grup pernikahan.</p>
+            <button onclick="joinGroup()" class="bg-[#25d366] hover:bg-[#1ebd59] text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all transform active:scale-95 focus:outline-none">GABUNG GRUP</button>
+        </section>
+
+        <section id="chat-screen" class="screen flex-col">
+            <header class="bg-[#008069] text-white p-3 flex items-center shadow-md z-20 cursor-pointer" onclick="showInfo()">
+                <div class="mr-3 flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    <img src="foto_grup.webp" class="w-10 h-10 rounded-full object-cover border border-white/20" alt="Foto Grup">
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <h2 class="font-medium text-lg truncate">Nikahan <span class="text-sky-300">A</span>&<span class="text-pink-300">A</span> 💍</h2>
+                    <p class="text-xs opacity-90 truncate" id="header-status">Aditya, Amartha, Sobat Kondangan</p>
+                </div>
+                <div class="flex gap-4 text-xl pr-2">
+                    <i class="fas fa-video opacity-60"></i>
+                    <i class="fas fa-phone opacity-60"></i>
+                    <i class="fas fa-ellipsis-v opacity-60"></i>
+                </div>
+            </header>
+            <main id="chat-content" class="flex-1 overflow-y-auto p-4 flex flex-col no-scrollbar z-10 relative" style="scroll-behavior: smooth;">
+                <div class="system-msg mt-2">Anda ditambahkan</div>
+                <div class="system-msg italic">Hari ini</div>
+            </main>
+            <footer class="p-2 flex items-center gap-2 z-20">
+                <div class="bg-white flex-1 rounded-full flex items-center px-4 py-2 shadow-sm cursor-pointer" onclick="openRSVP()">
+                    <i class="far fa-smile text-gray-400 mr-3 text-xl"></i>
+                    <div class="text-gray-400 flex-1">Ketik pesan & doa...</div>
+                    <i class="fas fa-camera text-gray-400 text-xl"></i>
+                </div>
+                <button onclick="openRSVP()" class="bg-[#00a884] w-12 h-12 rounded-full flex items-center justify-center text-white shadow-md focus:outline-none"><i class="fas fa-microphone text-xl"></i></button>
+            </footer>
+        </section>
+
+        <section id="info-screen" class="screen bg-[#f0f2f5] overflow-y-auto no-scrollbar">
+            <div class="relative">
+                <div class="absolute top-4 left-4 z-30 bg-black/20 w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer" onclick="backToChat()"><i class="fas fa-arrow-left"></i></div>
+                <div class="relative w-full h-72 flex flex-col items-center justify-center bg-gray-900 overflow-hidden">
+                    <img src="foto_grup.webp" class="absolute w-full h-full object-cover blur-lg opacity-40 scale-110">
+                    <div class="relative z-10 w-32 h-32 rounded-full border-4 border-white/40 shadow-2xl overflow-hidden cursor-pointer mt-4" onclick="openLightbox(this.querySelector('img').src)">
+                        <img src="foto_grup.webp" class="w-full h-full object-cover">
+                    </div>
+                    <div class="relative z-20 text-center text-white px-4 mt-4">
+                        <h1 class="text-2xl font-bold text-shadow">Nikahan <span class="text-sky-300">A</span>&<span class="text-pink-300">A</span> 💍</h1>
+                        <p class="text-sm opacity-95 text-shadow font-semibold mt-1">Grup · 3 Peserta</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 mb-2 shadow-sm">
+                <p class="text-[#008069] font-medium mb-2">Deskripsi</p>
+                <div class="text-gray-700 text-sm space-y-3 leading-relaxed">
+                    <p>Maha Suci Allah yang telah menciptakan mahluk-Nya berpasang-pasangan. Ya Allah, perkenankanlah kami merangkaikan kasih sayang yang Kau ciptakan dalam ikatan pernikahan:</p>
+                    <div class="pl-3 border-l-2 border-[#008069]/30 py-1 bg-gray-50/50 rounded-r-lg">
+                        <p class="font-bold text-sky-400">Aditya Bayu Prasetyo</p>
+                        <p class="text-xs text-gray-500 mb-2">Putra dari Bapak Sucipto & Ibu Siti Aminah</p>
+                        <p class="font-bold text-pink-400">& Amartha Ashfiana Nadhifa</p>
+                        <p class="text-xs text-gray-500">Putri dari Bapak Fatchudin & Ibu Euis Nadirotun</p>
+                    </div>
+                    <div class="space-y-1 pt-2">
+                        <p><b>Akad Nikah:</b> Selasa, 12 Mei 2026 | 08:00 WIB</p>
+                        <p><b>Resepsi:</b> Selasa, 12 Mei 2026 | 11:00 - 14:00 WIB</p>
+                        <p><b>Lokasi:</b> Gedung Korpri Kabupaten Tegal</p>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-400 mt-4 border-t pt-2">Grup dibuat oleh <span class="text-sky-400">Aditya</span> & <span class="text-pink-400">Amartha</span>, 6 April 2025</p>
+            </div>
+
+            <div class="bg-white mb-2 shadow-sm">
+                <div class="flex border-b text-center">
+                    <button onclick="switchTab('media')" id="tab-media-btn" class="flex-1 py-3 text-xs font-bold border-b-2">MEDIA</button>
+                    <button onclick="switchTab('links')" id="tab-links-btn" class="flex-1 py-3 text-xs font-bold border-b-2">TAUTAN</button>
+                    <button onclick="switchTab('docs')" id="tab-docs-btn" class="flex-1 py-3 text-xs font-bold border-b-2">DOKUMEN</button>
+                </div>
+                <div id="tab-content" class="p-0 min-h-[100px]"></div>
+            </div>
+
+            <div class="bg-white p-4 mb-2 shadow-sm text-center">
+                <h3 class="font-medium text-gray-500 mb-3 uppercase text-[10px] tracking-widest">Menuju Hari Bahagia</h3>
+                <div id="countdown" class="flex justify-center gap-6"></div>
+            </div>
+
+            <div class="bg-white shadow-sm mb-2">
+                <div class="p-4 text-sm font-medium text-gray-500 border-b">3 Peserta</div>
+                <div class="flex items-center px-4 py-3 gap-4 border-b">
+                    <img src="aditya.webp" class="w-12 h-12 rounded-full object-cover cursor-pointer hover:opacity-80 transition-opacity" onclick="openLightbox(this.src)">
+                    <div class="flex-1"><div class="font-medium text-sm text-sky-500">Aditya Bayu Prasetyo</div><div class="text-xs text-gray-500">Mempelai Pria</div></div>
+                    <span class="text-[10px] text-[#008069] border border-[#008069] px-1 rounded">Admin</span>
+                </div>
+                <div class="flex items-center px-4 py-3 gap-4 border-b">
+                    <img src="amartha.webp" class="w-12 h-12 rounded-full object-cover cursor-pointer hover:opacity-80 transition-opacity" onclick="openLightbox(this.src)">
+                    <div class="flex-1"><div class="font-medium text-sm text-pink-500">Amartha Ashfiana Nadhifa</div><div class="text-xs text-gray-500">Mempelai Wanita</div></div>
+                    <span class="text-[10px] text-[#008069] border border-[#008069] px-1 rounded">Admin</span>
+                </div>
+                <div class="flex items-center px-4 py-3 gap-4">
+                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-400"><i class="fas fa-user text-xl"></i></div>
+                    <div class="flex-1"><div class="font-medium text-sm text-gray-800">Sobat Kondangan (Anda)</div><div class="text-xs text-gray-500">Online</div></div>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 mb-2 shadow-sm">
+                <button onclick="openGift()" class="w-full bg-[#00a884] active:bg-[#008069] text-white py-3 rounded-md font-bold flex items-center justify-center gap-2">
+                    <i class="fas fa-gift"></i> Wedding Gift
+                </button>
+            </div>
+
+            <div class="bg-white shadow-sm mb-4">
+                <div class="p-4 text-sm font-medium text-[#008069] border-b flex items-center justify-between">
+                    <span>Daftar Konfirmasi Kehadiran</span>
+                    <i class="fas fa-clipboard-list opacity-50"></i>
+                </div>
+                <div id="rsvp-list-container" class="divide-y max-h-[400px] overflow-y-auto no-scrollbar">
+                    <div class="p-8 text-center text-gray-400 italic text-xs">Memuat data kehadiran...</div>
+                </div>
+            </div>
+            <div class="p-10 text-center opacity-0">.</div>
+        </section>
+    </div>
+
+    <div id="rsvp-modal" class="modal">
+        <div class="bg-white w-full max-w-sm rounded-lg overflow-hidden animate-bubble">
+            <div class="bg-[#008069] text-white p-4 font-bold flex justify-between"><span>Konfirmasi Kehadiran</span><i class="fas fa-times cursor-pointer" onclick="closeRSVP()"></i></div>
+            <form id="rsvp-form" class="p-4 space-y-4">
+                <div><label class="block text-[10px] font-bold text-gray-400 uppercase">Nama Lengkap</label><input type="text" id="rsvp-name" placeholder="Contoh: Sobat Kondangan" required class="w-full border-b-2 py-2 text-sm outline-none focus:border-[#008069]"></div>
+                <div><label class="block text-[10px] font-bold text-gray-400 uppercase">Kehadiran</label><select id="rsvp-status" class="w-full border-b-2 py-2 text-sm bg-white outline-none"><option value="hadir">✅ Hadir</option><option value="tidak">❌ Tidak Hadir</option></select></div>
+                <div><label class="block text-[10px] font-bold text-gray-400 uppercase">Pesan & Doa</label><textarea id="rsvp-note" required placeholder="Tulis ucapan selamat..." class="w-full border-b-2 py-2 text-sm outline-none focus:border-[#008069] resize-none" rows="2"></textarea></div>
+                <button type="submit" id="rsvp-submit-btn" class="w-full bg-[#25d366] text-white font-bold py-3 rounded shadow-md">KIRIM PESAN</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="gift-modal" class="modal">
+        <div class="bg-white w-full max-w-sm rounded-lg overflow-hidden">
+            <div class="bg-[#008069] text-white p-4 font-bold flex justify-between"><span>Wedding Gift</span><i class="fas fa-times cursor-pointer" onclick="closeGift()"></i></div>
+            <div class="p-4 space-y-4">
+                <div class="bg-gray-50 p-3 rounded border">
+                    <p class="text-[10px] font-bold text-gray-400 mb-1 uppercase">Mandiri - <span class="text-sky-500">Aditya Bayu Prasetyo</span></p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-sm tracking-widest">1234567890</span>
+                        <button onclick="copyToClipboard('1234567890')" class="bg-[#008069]/10 text-[#008069] text-[10px] font-bold px-3 py-1 rounded-full">SALIN</button>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-3 rounded border">
+                    <p class="text-[10px] font-bold text-gray-400 mb-1 uppercase">Mandiri - <span class="text-pink-500">Amartha Ashfiana Nadhifa</span></p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-sm tracking-widest">0987654321</span>
+                        <button onclick="copyToClipboard('0987654321')" class="bg-[#008069]/10 text-[#008069] text-[10px] font-bold px-3 py-1 rounded-full">SALIN</button>
+                    </div>
+                </div>
+                <div class="bg-gray-100 p-3 rounded text-xs text-gray-600 border border-dashed border-[#00a884] relative">
+                    <div class="flex justify-between items-start mb-2">
+                        <b class="text-[#008069]">Alamat Pengiriman:</b>
+                        <button onclick="copyToClipboard('Griya Mutiara Dhika Blok F No 6, Desa Kademangaran, Kecamatan Dukuhturi, Kabupaten Tegal.')" class="bg-[#00a884] text-white text-[9px] font-bold px-2 py-1 rounded shadow-sm">SALIN ALAMAT</button>
+                    </div>
+                    <p class="leading-relaxed">Griya Mutiara Dhika Blok F No 6, Desa Kademangaran, Kecamatan Dukuhturi, Kabupaten Tegal.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="lightbox" class="modal" onclick="closeLightbox()"><img id="lb-img" class="max-w-full max-h-[90vh] object-contain"></div>
+    <div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-black/80 text-white px-6 py-2 rounded-full text-xs font-medium opacity-0 transition-opacity z-[200] pointer-events-none">Berhasil disalin</div>
+    <div id="music-btn" class="music-control hidden" onclick="toggleMusic()"><i id="music-icon" class="fas fa-music text-[#008069]"></i></div>
+    <audio id="bg-music" loop><source src="musik.mp3" type="audio/mpeg"></audio>
+
+    <script>
+        // Google Script API URL
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzSYGPUU6I_FV43a769gBes1Yte--h1O0dJbd-iVg9t7vygcC8XkI3qxUEVgEQHZX1cyQ/exec";
+
+        const state = {
+            weddingDate: new Date("May 12, 2026 08:00:00").getTime(),
+            isMusicPlaying: false,
+            replyTurn: 0,
+            rsvpCount: 0,
+            colors: ['text-green-600', 'text-sky-400', 'text-pink-400', 'text-orange-600', 'text-teal-600', 'text-indigo-600', 'text-rose-600', 'text-cyan-600'],
+            messages: [
+                { from: 'Aditya', text: 'Assalamualaikum Warahmatullahi Wabarakatuh.\nHalo semuanya! 👋', delay: 1000, isAdmin: true, side: 'left' },
+                { from: 'Sobat Kondangan', text: 'Waalaikumsalam Wr. Wb. Kayaknya ada pengumuman penting nih, gas lah spill... 👀', delay: 1500, isAdmin: false, side: 'right' },
+                { from: 'Amartha', text: 'Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir di hari bahagia kami:\n\n🗓️ *Selasa, 12 Mei 2026*\n💍 *Akad:* 08:00 WIB\n🎉 *Resepsi:* 11:00 - 14:00 WIB\n📍 *Lokasi:* Gedung Korpri Kab. Tegal', delay: 2000, isAdmin: true, side: 'left' },
+                { from: 'Sobat Kondangan', text: 'Masya Allah, Alhamdulillah! Akhirnya keluar juga tanggal cantiknya. Noted banget nih, Selasa 12 Mei di Gedung Korpri ya! 😍👏', delay: 1500, isAdmin: false, side: 'right' },
+                { from: 'Aditya', text: 'Untuk navigasi maps dan detail lainnya, kakak bisa cek di *Info Grup* dengan klik nama grup di atas ya! 👆', delay: 1500, isAdmin: true, side: 'left' },
+                { from: 'Amartha', text: 'Mohon doa restunya ya kawan-kawan semua. Jangan lupa konfirmasi kehadiran di kolom chat ini ya! ✨', delay: 1200, isAdmin: true, side: 'left' },
+                { from: 'Sobat Kondangan', text: 'Siap laksanakan! Pokoknya doa terbaik buat kalian berdua, semoga dilancarkan segala persiapannya sampai hari H. Bismillah, saya konfirmasi HADIR ya! Gak sabar mau seru-seruan bareng di Tegal nanti! 🥳🔥', delay: 2000, isAdmin: false, side: 'right' },
+                { from: 'Aditya', text: 'Mantap, makasih ya! Ditunggu kehadirannya. Ayo buat kawan-kawan yang lain bisa langsung konfirmasi juga di bawah ya, terima kasih! 🙏😇', delay: 1500, isAdmin: true, side: 'left' }
+            ],
+            replies: {
+                hadir: {
+                    Aditya: ["Alhamdulillah, kami tunggu kehadirannya! 😊", "Mantap! Gak sabar ketemu di pelaminan nanti. ✨", "Asyik! Makasih ya sudah mau jadi saksi perjalanan kami. 🙏"],
+                    Amartha: ["Masya Allah, terima kasih konfirmasinya! Sampai jumpa ya. 🙏", "Terima kasih banyak! Kehadiran kakak sangat berarti. 🤗", "Yeay! Makasih sudah meluangkan waktu. See you! 😊"]
+                },
+                tidak: {
+                    Aditya: ["Terima kasih kabarnya. Mohon doa terbaiknya saja ya. 🙏", "Gak apa-apa kak, yang penting doanya sampai. 🙏", "Paham kak, sukses terus buat urusannya di sana! 😊"],
+                    Amartha: ["Sayang sekali, tapi gapapa, mohon doanya ya. 😊", "Sedih gak bisa ketemu, tapi kami paham. Makasih ya! 🤗", "Terima kasih konfirmasinya. Doakan kami menjadi keluarga sakinah ya. 🙏"]
+                }
+            }
+        };
+
+        function joinGroup() {
+            document.getElementById('splash-screen').remove();
+            document.getElementById('chat-screen').classList.add('active');
+            document.getElementById('music-btn').classList.remove('hidden');
+            const music = document.getElementById('bg-music');
+            music.play().then(() => { state.isMusicPlaying = true; updateMusicUI(); }).catch(() => {});
+            simulateChat();
+            fetchRSVP();
+        }
+
+        async function simulateChat() {
+            const status = document.getElementById('header-status');
+            for (const msg of state.messages) {
+                await new Promise(r => setTimeout(r, msg.delay));
+                if(status) status.innerText = `${msg.from} sedang mengetik...`;
+                await new Promise(r => setTimeout(r, 800));
+                if(status) status.innerText = "Aditya, Amartha, Sobat Kondangan";
+                const color = msg.from === 'Aditya' ? 'text-sky-400' : (msg.from === 'Amartha' ? 'text-pink-400' : 'text-green-600');
+                appendMsg(msg.from, msg.text, msg.side, color, msg.isAdmin);
+            }
+        }
+
+        function appendMsg(sender, text, side, colorClass, isAdmin = false) {
+            const container = document.getElementById('chat-content');
+            const div = document.createElement('div');
+            div.className = `chat-bubble bubble-${side} animate-bubble`;
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            div.innerHTML = `<div class="font-bold text-[10px] mb-0.5 flex items-center ${colorClass}">${sender} ${isAdmin ? '<span class="ml-1 px-1 bg-gray-100 text-gray-500 rounded text-[8px] border">Admin</span>' : ''}</div><div class="whitespace-pre-wrap">${text}</div><div class="bubble-time">${time}</div>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        async function fetchRSVP() {
+            try {
+                const response = await fetch(SCRIPT_URL);
+                const data = await response.json();
+                const container = document.getElementById('rsvp-list-container');
+                container.innerHTML = '';
+                
+                if (data.length === 0) {
+                    container.innerHTML = '<div class="p-8 text-center text-gray-400 italic text-xs">Belum ada konfirmasi kehadiran.</div>';
+                } else {
+                    data.reverse().forEach(item => {
+                        const timeStr = item.timestamp ? new Date(item.timestamp) : new Date();
+                        renderRSVPItem(item.nama, item.status, item.pesan, timeStr);
+                    });
+                }
+            } catch (error) {
+                console.error("Gagal mengambil data:", error);
+                document.getElementById('rsvp-list-container').innerHTML = '<div class="p-8 text-center text-red-400 text-xs">Gagal memuat data.</div>';
+            }
+        }
+
+        function renderRSVPItem(name, status, note, dateObj) {
+            const container = document.getElementById('rsvp-list-container');
+            if (state.rsvpCount === 0) container.innerHTML = '';
+            state.rsvpCount++;
+            
+            const time = dateObj.toLocaleString('id-ID', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+            const statusText = status === 'hadir' ? 'HADIR' : 'TIDAK HADIR';
+            const statusColor = status === 'hadir' ? 'text-green-600' : 'text-red-500';
+            const randomColor = state.colors[Math.floor(Math.random() * state.colors.length)];
+            const bgClass = randomColor.replace('text-', 'bg-').replace(/-\d+$/, '-50');
+            
+            const div = document.createElement('div');
+            div.className = 'px-4 py-3 flex gap-4 animate-bubble';
+            div.innerHTML = `
+                <div class="w-10 h-10 rounded-full ${bgClass} ${randomColor} flex items-center justify-center font-bold text-sm shrink-0 shadow-sm border border-white">${name[0].toUpperCase()}</div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-bold text-sm ${randomColor}">${name}</span>
+                        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded border ${statusColor.replace('text-', 'border-')} ${statusColor}">${statusText}</span>
+                    </div>
+                    <p class="text-xs text-gray-600 italic border-l-2 border-gray-100 pl-2">"${note}"</p>
+                    <div class="text-[9px] text-gray-400 mt-2"><i class="far fa-clock"></i> ${time}</div>
+                </div>`;
+            container.prepend(div);
+        }
+
+        document.getElementById('rsvp-form').onsubmit = async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('rsvp-submit-btn');
+            const name = document.getElementById('rsvp-name').value;
+            const status = document.getElementById('rsvp-status').value;
+            const note = document.getElementById('rsvp-note').value;
+            
+            btn.disabled = true;
+            btn.innerText = "MENGIRIM...";
+
+            // Langsung tampil di chat (palsu) agar responsif
+            appendMsg(`${name} (${status === 'hadir' ? 'HADIR' : 'TIDAK HADIR'})`, note, 'right', 'text-green-600');
+            
+            try {
+                // Kirim ke Google Sheets
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ nama: name, status: status, pesan: note })
+                });
+                renderRSVPItem(name, status, note, new Date());
+            } catch (error) {
+                console.error("Gagal mengirim:", error);
+            }
+
+            btn.disabled = false;
+            btn.innerText = "KIRIM PESAN";
+            closeRSVP();
+            this.reset();
+            
+            // Balasan otomatis dari mempelai
+            setTimeout(() => {
+                const currentMempelai = state.replyTurn === 0 ? 'Amartha' : 'Aditya';
+                const options = state.replies[status][currentMempelai];
+                const reply = options[Math.floor(Math.random() * options.length)];
+                appendMsg(currentMempelai, reply, 'left', currentMempelai === 'Amartha' ? 'text-pink-400' : 'text-sky-400', true);
+                state.replyTurn = 1 - state.replyTurn;
+            }, 1500);
+        };
+
+        // UI Handlers
+        function showInfo() { document.getElementById('chat-screen').classList.remove('active'); document.getElementById('info-screen').classList.add('active'); switchTab('media'); }
+        function backToChat() { document.getElementById('info-screen').classList.remove('active'); document.getElementById('chat-screen').classList.add('active'); }
+        function openRSVP() { document.getElementById('rsvp-modal').classList.add('active'); }
+        function closeRSVP() { document.getElementById('rsvp-modal').classList.remove('active'); }
+        function openGift() { document.getElementById('gift-modal').classList.add('active'); }
+        function closeGift() { document.getElementById('gift-modal').classList.remove('active'); }
+        function openLightbox(s) { document.getElementById('lb-img').src = s; document.getElementById('lightbox').classList.add('active'); }
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+
+        function switchTab(tab) {
+            ['media', 'links', 'docs'].forEach(b => {
+                const el = document.getElementById(`tab-${b}-btn`);
+                el.className = b === tab ? 'flex-1 py-3 text-xs font-bold border-b-2 border-[#008069] text-[#008069]' : 'flex-1 py-3 text-xs font-bold border-b-2 border-transparent text-gray-400';
+            });
+            const content = document.getElementById('tab-content');
+            if(tab === 'media') {
+                content.innerHTML = '<div class="grid grid-cols-3 gap-0.5">' + [1,2,3,4,5,6,7,8,9].map((i) => `<img src="foto${i}.webp" class="aspect-square w-full object-cover cursor-pointer" onclick="openLightbox(this.src)">`).join('') + '</div>';
+            } else if(tab === 'links') {
+                content.innerHTML = `
+                    <div class="flex flex-col">
+                        <a href="https://maps.app.goo.gl/YcWf41Vun9S1B5qU6" target="_blank" class="p-4 flex items-center gap-4 border-b text-inherit no-underline bg-white active:bg-gray-50 transition-colors">
+                            <div class="bg-[#e7f6f2] w-10 h-10 rounded-md flex items-center justify-center text-[#008069] shrink-0 border border-[#008069]/20"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="text-xs"><b>Lokasi Gedung Korpri</b><br><span class="text-[#008069] italic">Buka Google Maps</span></div>
+                        </a>
+                        <a href="https://www.instagram.com/adityabayp/" target="_blank" class="p-4 flex items-center gap-4 border-b text-inherit no-underline bg-white active:bg-gray-50 transition-colors">
+                            <div class="bg-blue-50 w-10 h-10 rounded-md flex items-center justify-center text-sky-500 shrink-0 border border-sky-100"><i class="fab fa-instagram"></i></div>
+                            <div class="text-xs"><b>Instagram <span class="text-sky-500">Aditya</span></b><br><span class="text-sky-500 italic">@adityabayp</span></div>
+                        </a>
+                        <a href="https://www.instagram.com/amarthaan/" target="_blank" class="p-4 flex items-center gap-4 border-b text-inherit no-underline bg-white active:bg-gray-50 transition-colors">
+                            <div class="bg-pink-50 w-10 h-10 rounded-md flex items-center justify-center text-pink-500 shrink-0 border border-pink-100"><i class="fab fa-instagram"></i></div>
+                            <div class="text-xs"><b>Instagram <span class="text-pink-500">Amartha</span></b><br><span class="text-pink-500 italic">@amarthaan</span></div>
+                        </a>
+                    </div>`;
+            } else {
+                content.innerHTML = `
+                    <a href="undangan.pdf" target="_blank" class="p-4 flex items-center gap-4 border-b bg-white block no-underline text-inherit active:bg-gray-50">
+                        <div class="bg-red-50 w-10 h-10 rounded-md flex items-center justify-center text-red-500 shrink-0 border border-red-100"><i class="fas fa-file-pdf"></i></div>
+                        <div class="text-xs"><b>E-Undangan_Aditya_Amartha.pdf</b><br><span class="text-gray-400">Klik untuk buka</span></div>
+                    </a>`;
+            }
+        }
+
+        function copyToClipboard(text) {
+            const ta = document.createElement("textarea");
+            ta.value = text; ta.style.position = "fixed"; ta.style.left = "-9999px";
+            document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+            document.body.removeChild(ta);
+            const t = document.getElementById('toast');
+            t.style.opacity = '1'; setTimeout(() => t.style.opacity = '0', 2000);
+        }
+
+        function toggleMusic() {
+            const a = document.getElementById('bg-music');
+            if(state.isMusicPlaying) a.pause(); else a.play();
+            state.isMusicPlaying = !state.isMusicPlaying;
+            updateMusicUI();
+        }
+
+        function updateMusicUI() {
+            document.getElementById('music-icon').className = state.isMusicPlaying ? 'fas fa-compact-disc fa-spin text-[#00a884]' : 'fas fa-music text-gray-400';
+        }
+
+        function updateCountdown() {
+            const diff = state.weddingDate - new Date().getTime();
+            const el = document.getElementById('countdown');
+            if(diff <= 0) { el.innerHTML = "Acara Sedang Berlangsung!"; return; }
+            const d = Math.floor(diff/(1000*60*60*24)), h = Math.floor((diff%(1000*60*60*24))/(1000*60*60)), m = Math.floor((diff%(1000*60*60))/(1000*60)), s = Math.floor((diff%(1000*60))/1000);
+            el.innerHTML = [[d,'Hari'],[h,'Jam'],[m,'Menit'],[s,'Detik']].map(v => `<div class="text-center"><div class="text-xl font-bold text-[#008069]">${v[0]}</div><div class="text-[8px] uppercase text-gray-400">${v[1]}</div></div>`).join('');
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
