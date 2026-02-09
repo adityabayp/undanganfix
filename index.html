@@ -45,6 +45,7 @@
             display: flex; 
             flex-direction: column; 
         }
+        /* BAGIAN YANG DIUBAH: Background menyesuaikan lebar & tinggi */
         .chat-wallpaper { 
             position: absolute; 
             top: 0; 
@@ -55,7 +56,7 @@
             background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.2; 
+            opacity: 0.2; /* Opacity ditingkatkan sedikit agar preview terlihat tapi chat tetap jelas */
             pointer-events: none; 
             z-index: 1; 
         }
@@ -277,17 +278,17 @@
             <div class="bg-[#008069] text-white p-4 font-bold flex justify-between"><span>Wedding Gift</span><i class="fas fa-times cursor-pointer" onclick="closeGift()"></i></div>
             <div class="p-4 space-y-4">
                 <div class="bg-gray-50 p-3 rounded border">
-                    <p class="text-[10px] font-bold text-gray-400 mb-1 uppercase">Bank Mandiri - <span class="text-sky-500">Aditya Bayu Prasetyo</span></p>
+                    <p class="text-[10px] font-bold text-gray-400 mb-1 uppercase">Mandiri - <span class="text-sky-500">Aditya Bayu Prasetyo</span></p>
                     <div class="flex justify-between items-center">
-                        <span class="font-bold text-sm tracking-widest">1390033310230</span>
-                        <button onclick="copyToClipboard('1390033310230')" class="bg-[#008069]/10 text-[#008069] text-[10px] font-bold px-3 py-1 rounded-full">SALIN</button>
+                        <span class="font-bold text-sm tracking-widest">1234567890</span>
+                        <button onclick="copyToClipboard('1234567890')" class="bg-[#008069]/10 text-[#008069] text-[10px] font-bold px-3 py-1 rounded-full">SALIN</button>
                     </div>
                 </div>
                 <div class="bg-gray-50 p-3 rounded border">
-                    <p class="text-[10px] font-bold text-gray-400 mb-1 uppercase">Bank Mandiri - <span class="text-pink-500">Amartha Ashfiana Nadhifa</span></p>
+                    <p class="text-[10px] font-bold text-gray-400 mb-1 uppercase">Mandiri - <span class="text-pink-500">Amartha Ashfiana Nadhifa</span></p>
                     <div class="flex justify-between items-center">
-                        <span class="font-bold text-sm tracking-widest">1390028126815</span>
-                        <button onclick="copyToClipboard('1390028126815')" class="bg-[#008069]/10 text-[#008069] text-[10px] font-bold px-3 py-1 rounded-full">SALIN</button>
+                        <span class="font-bold text-sm tracking-widest">0987654321</span>
+                        <button onclick="copyToClipboard('0987654321')" class="bg-[#008069]/10 text-[#008069] text-[10px] font-bold px-3 py-1 rounded-full">SALIN</button>
                     </div>
                 </div>
                 <div class="bg-gray-100 p-3 rounded text-xs text-gray-600 border border-dashed border-[#00a884] relative">
@@ -466,7 +467,7 @@
                     <div class="flex flex-col">
                         <a href="https://www.google.com/maps/search/?api=1&query=Gedung+Korpri+Slawi+Kabupaten+Tegal" target="_blank" class="p-4 flex items-center gap-4 border-b text-inherit no-underline bg-white active:bg-gray-50 transition-colors">
                             <div class="bg-[#e7f6f2] w-10 h-10 rounded-md flex items-center justify-center text-[#008069] shrink-0 border border-[#008069]/20"><i class="fas fa-map-marker-alt"></i></div>
-                            <div class="text-xs"><b>Lokasi Gedung Korpri Slawi</b><br><span class="text-gray-400 italic">Buka Google Maps</span></div>
+                            <div class="text-xs"><b>Lokasi Gedung Korpri Slawi</b><br><span class="text-[#008069] italic">Buka Google Maps</span></div>
                         </a>
                         <a href="https://www.instagram.com/adityabayp/" target="_blank" class="p-4 flex items-center gap-4 border-b text-inherit no-underline bg-white active:bg-gray-50 transition-colors">
                             <div class="bg-blue-50 w-10 h-10 rounded-md flex items-center justify-center text-sky-500 shrink-0 border border-sky-100"><i class="fab fa-instagram"></i></div>
@@ -476,23 +477,13 @@
                             <div class="bg-pink-50 w-10 h-10 rounded-md flex items-center justify-center text-pink-500 shrink-0 border border-pink-100"><i class="fab fa-instagram"></i></div>
                             <div class="text-xs"><b>Instagram <span class="text-pink-500">Amartha</span></b><br><span class="text-pink-500 italic">@amarthaan</span></div>
                         </a>
-                        <a href="https://sites.google.com/view/pernikahan-aditya-amartha" target="_blank" class="p-4 flex items-center gap-4 border-b text-inherit no-underline bg-white active:bg-gray-50 transition-colors">
-                            <div class="bg-purple-50 w-10 h-10 rounded-md flex items-center justify-center text-purple-600 shrink-0 border border-purple-100"><i class="fas fa-globe"></i></div>
-                            <div class="text-xs"><b>Wedding Page</b><br><span class="text-gray-400 italic">Kunjungi Google Sites</span></div>
-                        </a>
                     </div>`;
             } else {
                 content.innerHTML = `
-                    <div class="flex flex-col">
-                        <a href="undangan.pdf" target="_blank" class="p-4 flex items-center gap-4 border-b bg-white block no-underline text-inherit active:bg-gray-50">
-                            <div class="bg-red-50 w-10 h-10 rounded-md flex items-center justify-center text-red-500 shrink-0 border border-red-100"><i class="fas fa-file-pdf"></i></div>
-                            <div class="text-xs"><b>E-Undangan_Aditya_Amartha.pdf</b><br><span class="text-gray-400 italic">Klik untuk buka</span></div>
-                        </a>
-                        <a href="https://www.canva.com/design/DAF..." target="_blank" class="p-4 flex items-center gap-4 border-b bg-white block no-underline text-inherit active:bg-gray-50">
-                            <div class="bg-blue-50 w-10 h-10 rounded-md flex items-center justify-center text-blue-600 shrink-0 border border-blue-100"><i class="fas fa-palette"></i></div>
-                            <div class="text-xs"><b>Our Love Story</b><br><span class="text-gray-400 italic">Klik untuk lihat cerita kami</span></div>
-                        </a>
-                    </div>`;
+                    <a href="undangan.pdf" target="_blank" class="p-4 flex items-center gap-4 border-b bg-white block no-underline text-inherit active:bg-gray-50">
+                        <div class="bg-red-50 w-10 h-10 rounded-md flex items-center justify-center text-red-500 shrink-0 border border-red-100"><i class="fas fa-file-pdf"></i></div>
+                        <div class="text-xs"><b>E-Undangan_Aditya_Amartha.pdf</b><br><span class="text-gray-400">Klik untuk buka</span></div>
+                    </a>`;
             }
         }
 
