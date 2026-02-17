@@ -462,17 +462,18 @@
             if(tab === 'media') {
                 content.innerHTML = '<div class="grid grid-cols-3 gap-0.5">' + [1,2,3,4,5,6,7,8,9].map((i) => `<img src="foto${i}.webp" class="aspect-square w-full object-cover cursor-pointer" onclick="openLightbox(this.src)">`).join('') + '</div>';
             } else if(tab === 'links') {
+                // PERBAIKAN: Menggunakan tag <a> standar agar link pasti bisa diklik
                 content.innerHTML = `
                     <div class="flex flex-col">
                         <a href="https://maps.google.com/?q=Gedung+Korpri+Kabupaten+Tegal" target="_blank" class="p-4 flex items-center gap-4 border-b bg-white active:bg-gray-50 transition-colors no-underline text-inherit cursor-pointer">
                             <div class="bg-[#e7f6f2] w-10 h-10 rounded-md flex items-center justify-center text-[#008069] shrink-0 border border-[#008069]/20"><i class="fas fa-map-marker-alt"></i></div>
                             <div class="text-xs"><b>Lokasi Gedung Korpri Slawi</b><br><span class="text-gray-400 italic">Buka Google Maps</span></div>
                         </a>
-                        <a href="intent://instagram.com/_u/adityabayp/#Intent;package=com.instagram.android;scheme=https;end" class="p-4 flex items-center gap-4 border-b bg-white active:bg-gray-50 transition-colors no-underline text-inherit cursor-pointer">
+                        <a href="https://www.instagram.com/adityabayp/" target="_blank" class="p-4 flex items-center gap-4 border-b bg-white active:bg-gray-50 transition-colors no-underline text-inherit cursor-pointer">
                             <div class="bg-blue-50 w-10 h-10 rounded-md flex items-center justify-center text-sky-500 shrink-0 border border-sky-100"><i class="fab fa-instagram"></i></div>
                             <div class="text-xs"><b>Instagram <span class="text-sky-500">Aditya</span></b><br><span class="text-sky-500 italic">@adityabayp</span></div>
                         </a>
-                        <a href="intent://instagram.com/_u/amarthaan/#Intent;package=com.instagram.android;scheme=https;end" class="p-4 flex items-center gap-4 border-b bg-white active:bg-gray-50 transition-colors no-underline text-inherit cursor-pointer">
+                        <a href="https://www.instagram.com/amarthaan/" target="_blank" class="p-4 flex items-center gap-4 border-b bg-white active:bg-gray-50 transition-colors no-underline text-inherit cursor-pointer">
                             <div class="bg-pink-50 w-10 h-10 rounded-md flex items-center justify-center text-pink-500 shrink-0 border border-pink-100"><i class="fab fa-instagram"></i></div>
                             <div class="text-xs"><b>Instagram <span class="text-pink-500">Amartha</span></b><br><span class="text-pink-500 italic">@amarthaan</span></div>
                         </a>
