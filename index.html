@@ -132,18 +132,9 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         
-        /* CSS untuk efek sticky header mengecil ala WhatsApp */
-        .info-header-container {
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            transition: all 0.3s ease;
-        }
+        /* CSS untuk efek header mengecil ala WhatsApp */
         
-        .info-header-large {
-            transition: all 0.3s ease;
-        }
-        
+        /* Header kecil yang muncul saat scroll */
         .info-header-small {
             height: 60px !important;
             background: white !important;
@@ -165,6 +156,11 @@
         
         .info-header-small.hide {
             transform: translateX(-50%) translateY(-100%);
+        }
+        
+        /* Header besar */
+        #large-header {
+            transition: opacity 0.3s ease;
         }
         
         /* Class untuk memberi padding ke konten saat header kecil muncul */
@@ -246,26 +242,24 @@
                 </div>
             </div>
 
-            <!-- Container untuk header besar -->
-            <div class="info-header-container">
-                <div id="large-header" class="info-header-large relative">
-                    <div class="absolute top-4 left-4 z-30 bg-black/20 w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer" onclick="backToChat()">
-                        <i class="fas fa-arrow-left"></i>
+            <!-- HEADER BESAR -->
+            <div id="large-header" class="relative">
+                <div class="absolute top-4 left-4 z-30 bg-black/20 w-8 h-8 rounded-full flex items-center justify-center text-white cursor-pointer" onclick="backToChat()">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <div class="relative w-full h-72 flex flex-col items-center justify-center bg-gray-900 overflow-hidden">
+                    <img src="foto_grup.webp" class="absolute w-full h-full object-cover blur-lg opacity-40 scale-110">
+                    <div class="relative z-10 w-32 h-32 rounded-full border-4 border-white/40 shadow-2xl overflow-hidden cursor-pointer mt-4" onclick="openLightbox(this.querySelector('img').src)">
+                        <img src="foto_grup.webp" class="w-full h-full object-cover">
                     </div>
-                    <div class="relative w-full h-72 flex flex-col items-center justify-center bg-gray-900 overflow-hidden">
-                        <img src="foto_grup.webp" class="absolute w-full h-full object-cover blur-lg opacity-40 scale-110">
-                        <div class="relative z-10 w-32 h-32 rounded-full border-4 border-white/40 shadow-2xl overflow-hidden cursor-pointer mt-4" onclick="openLightbox(this.querySelector('img').src)">
-                            <img src="foto_grup.webp" class="w-full h-full object-cover">
-                        </div>
-                        <div class="relative z-20 text-center text-white px-4 mt-4">
-                            <h1 class="text-2xl font-bold text-shadow">Nikahan <span class="text-sky-300">A</span>&<span class="text-pink-300">A</span> 💍</h1>
-                            <p class="text-sm opacity-95 text-shadow font-semibold mt-1">Grup · 3 Anggota</p>
-                        </div>
+                    <div class="relative z-20 text-center text-white px-4 mt-4">
+                        <h1 class="text-2xl font-bold text-shadow">Nikahan <span class="text-sky-300">A</span>&<span class="text-pink-300">A</span> 💍</h1>
+                        <p class="text-sm opacity-95 text-shadow font-semibold mt-1">Grup · 3 Anggota</p>
                     </div>
                 </div>
             </div>
 
-            <!-- BUNGKUS SEMUA KONTEN dengan div info-content -->
+            <!-- BUNGKUS SEMUA KONTEN -->
             <div id="info-content" class="info-content">
                 <div class="bg-white p-5 mb-2 shadow-sm">
                     <p class="text-[#008069] font-medium mb-2">Bismillahirrahmanirrahim</p>
@@ -607,19 +601,24 @@
         // Efek header mengecil saat scroll di info screen
         const infoScreen = document.getElementById('info-screen');
         const smallHeader = document.getElementById('small-header');
+        const largeHeader = document.getElementById('large-header');
         const infoContent = document.getElementById('info-content');
         
-        if (infoScreen && smallHeader && infoContent) {
+        if (infoScreen && smallHeader && largeHeader && infoContent) {
             infoScreen.addEventListener('scroll', function() {
                 const scrollTop = infoScreen.scrollTop;
                 
                 if (scrollTop > 150) {
                     smallHeader.classList.add('show');
                     smallHeader.classList.remove('hide');
+                    largeHeader.style.opacity = '0';
+                    largeHeader.style.pointerEvents = 'none';
                     infoContent.classList.add('shifted');
                 } else {
                     smallHeader.classList.add('hide');
                     smallHeader.classList.remove('show');
+                    largeHeader.style.opacity = '1';
+                    largeHeader.style.pointerEvents = 'auto';
                     infoContent.classList.remove('shifted');
                 }
             });
