@@ -5,20 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Nikahan A&A 💍</title>
     
-    <!-- PERUBAHAN: og:image diperkecil & di samping teks sesuai permintaan -->
     <meta property="og:title" content="Aditya & Amartha 💍">
     <meta property="og:description" content="Selasa, 12 Mei 2026">
-    <!-- gambar preview sekarang kecil (width=200 height=105) agar muncul di samping teks -->
     <meta property="og:image" content="https://adityamartha.github.io/undangan/preview.webp">
-    <meta property="og:image:width" content="200">
-    <meta property="og:image:height" content="105">
+    <!-- UKURAN DIPERKECIL MENJADI 100x100 -->
+    <meta property="og:image:width" content="100">
+    <meta property="og:image:height" content="100">
     <meta property="og:url" content="https://wedding-a-a.com">
     <meta property="og:type" content="website">
     
-    <!-- properti lain tetap sama -->
     <meta property="og:image:type" content="image/jpeg">
-    <!-- TIDAK ADA PERUBAHAN LAIN, semua konten, style, script IDEM -->
-
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -466,7 +462,6 @@
             if(tab === 'media') {
                 content.innerHTML = '<div class="grid grid-cols-3 gap-0.5">' + [1,2,3,4,5,6,7,8,9].map((i) => `<img src="foto${i}.webp" class="aspect-square w-full object-cover cursor-pointer" onclick="openLightbox(this.src)">`).join('') + '</div>';
             } else if(tab === 'links') {
-                // PERBAIKAN: Menggunakan tag <a> standar agar link pasti bisa diklik
                 content.innerHTML = `
                     <div class="flex flex-col">
                         <a href="https://maps.google.com/?q=Gedung+Korpri+Kabupaten+Tegal" target="_blank" class="p-4 flex items-center gap-4 border-b bg-white active:bg-gray-50 transition-colors no-underline text-inherit cursor-pointer">
